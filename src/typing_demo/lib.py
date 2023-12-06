@@ -2,23 +2,23 @@ def add(x, y):
     return x + y
 
 
-class X: ...
+# class X: ...
 
-class Y: ...
+# class Y: ...
 
-x = X()
+# x = X()
 
-total = x + Y()
+# total = x + Y()
 
-x.hello()
+# x.hello()
 
-add(19, 'abc')
+# add(19, 'abc')
 
 
-def foo(items: list[int]) -> str:
-    for item in items:
-        items.append(items)
-    return item
+# def foo(items: list[int]) -> str:
+#     for item in items:
+#         items.append(items)
+#     return item
 
-foo.startswith('bar')  # No error
+# foo.startswith('bar')  # No error
 

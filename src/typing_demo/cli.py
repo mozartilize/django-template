@@ -15,6 +15,12 @@ class Command(click.Command):
                 help="Configuration file.",
             ),
             click.Option(
+                ("logconfig", "--log-config"),
+                type=str,
+                default="logging.ini",
+                help="Logging configuration file.",
+            ),
+            click.Option(
                 ("--debug/--no-debug",),
                 default=False,
                 help="Enable debug mode."
@@ -31,7 +37,7 @@ class Command(click.Command):
         from typing_demo.config import configure
 
         with open(config_file) as config_fo:
-            config = configure(config_fo)
+            config = configure(config_fo, debug=ctx.params['debug'], logconfig=ctx.params['logconfig'])
             ctx.obj = config
 
         return ctx
@@ -96,10 +102,14 @@ cli.add_command(
 @click.argument("gunicorn_args", nargs=-1, type=click.UNPROCESSED)
 @click.pass_context
 def start_server(ctx, gunicorn_args, **options):
+    """A workaround solution to run the server by ourselves.
+    As we already configure the logging so we custom logger class which dont do any setup
+    and gunicorn doesn't log any accesslog if non of the log config flag set.
+    """
     import importlib
     import sys
 
-    sys.argv = ["gunicorn", "__main__:webapp", *gunicorn_args]
+    sys.argv = ["gunicorn", "__main__:webapp", *gunicorn_args, "--logger-class", "typing_demo.gunicorn.Logger", "--log-config", "/dev/null"]
 
     from typing_demo.web import WebApplication, AppData
 

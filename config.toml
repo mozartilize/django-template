@@ -1,4 +1,6 @@
 [app]
 secret_key = "secret_key"
+logconfig = "logging.ini"
 
 [django]
+foo = "bar"
