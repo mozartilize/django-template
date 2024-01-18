@@ -5,6 +5,17 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "typing-demo"
 version = "0.1.0"
+dependencies = [
+	"django",
+	"gunicorn",
+	"pydantic",
+	"click",
+	"toml",
+	"django_extensions",
+]
+
+[project.optional-dependencies]
+dev = ["django-types", "black"]
 
 [tool.pyright]
 exclude                = ["**/node_modules", "**/__pycache__"]
@@ -15,12 +26,12 @@ reportMissingTypeStubs = true
 reportGeneralTypeIssues = true
 reportPrivateImportUsage = "information"
 reportUnusedFunction = true
-# reportUnknownParameterType = true
-# reportUnknownArgumentType = true
-# reportUnknownVariableType = true
-# reportUnknownMemberType = true
-# reportMissingParameterType = true
-# reportMissingTypeArgument = true
+reportUnknownParameterType = true
+reportUnknownArgumentType = true
+reportUnknownVariableType = true
+reportUnknownMemberType = true
+reportMissingParameterType = true
+reportMissingTypeArgument = true
 reportImportCycles = true
 
 pythonPlatform = "Linux"
